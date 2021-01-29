@@ -18,14 +18,14 @@ public class Operador extends Thread{
   }
 
   public void imprimirPares(){
-    System.out.println("Imprimiendo los numeros pares entre 1 y " + cotaSuperior);
+    System.out.println(nombre + ": Imprimiendo los numeros pares entre 1 y " + cotaSuperior);
     for(int i = 1; i < cotaSuperior/2; i++){
       imprimir(i*2);
     }
   }
 
   public void imprimirImpares(){
-    System.out.println("Imprimiendo los numeros impares entre 1 y " + cotaSuperior);
+    System.out.println(nombre + ": Imprimiendo los numeros impares entre 1 y " + cotaSuperior);
     for(int i = 0; i < cotaSuperior/2; i++){
       imprimir(i*2+1);
     }
@@ -33,10 +33,10 @@ public class Operador extends Thread{
 
   public void imprimirMultiplos(int base){
     if(base <= 1 || base > cotaSuperior){
-      System.out.println("Base invalida");
+      System.out.println(nombre + ": Base invalida");
       return;
     }
-    System.out.println("Imprimiendo los multiplos de " + base + " entre 1 y " + cotaSuperior);
+    System.out.println(nombre + ": Imprimiendo los multiplos de " + base + " entre 1 y " + cotaSuperior);
     int tmp;
     for(int i = 1; i < cotaSuperior/2; i++){
       tmp = i*base;
@@ -46,7 +46,7 @@ public class Operador extends Thread{
   }
 
   public void imprimirPrimos(){
-    System.out.println("Imprimiendo los numeros primos entre 1 y " + cotaSuperior);
+    System.out.println(nombre + ": Imprimiendo los numeros primos entre 1 y " + cotaSuperior);
     for(int i = 2; i < cotaSuperior; i++){
       if(esPrimo(i)){
         imprimir(i);
