@@ -3,10 +3,12 @@ import java.util.Random;
 public class Operador implements Runnable{
   private String nombre;
   private int cotaSuperior;
+  private int opc;
 
-  public Operador(String nombre, int cotaSuperior){
+  public Operador(String nombre, int cotaSuperior, int opc){
     this.nombre = nombre;
     this.cotaSuperior = cotaSuperior;
+    this.opc = opc;
   }
 
   public void start(){
@@ -15,10 +17,20 @@ public class Operador implements Runnable{
 
   public void run(){
     Random random = new Random();
-    imprimirPares();
-    imprimirImpares();
-    imprimirMultiplos(random.nextInt(cotaSuperior/2));
-    imprimirPrimos();
+    switch(opc){
+      case 1:
+        imprimirPares();
+        break;
+      case 2:
+        imprimirImpares();
+        break;
+      case 3:
+        imprimirMultiplos(random.nextInt(cotaSuperior/2));
+        break;
+      case 4:
+        imprimirPrimos();
+        break;
+    }
   }
 
   public void imprimirPares(){
