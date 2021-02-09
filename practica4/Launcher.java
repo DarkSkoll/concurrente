@@ -8,13 +8,17 @@ public class Launcher{
       return;
     }
     Random random = new Random();
-    int[] arrayA = new Int[args[0]];
-    int[] arrayB = new Int[args[1]];
+    int[] arrayA = new int[Integer.parseInt(args[0])];
+    int[] arrayB = new int[Integer.parseInt(args[1])];
     for(int i = 0; i < arrayA.length; i++){
       arrayA[i] = random.nextInt(100);
     }
     for(int i = 0; i < arrayB.length; i++){
       arrayB[i] = random.nextInt(100);
     }
+    Operador hilo1 = new Operador("Hilo 1", "Arreglo A", arrayA);
+    Operador hilo2 = new Operador("Hilo 2", "Arreglo B", arrayB);
+    hilo1.start();
+    hilo2.start();
   }
 }
