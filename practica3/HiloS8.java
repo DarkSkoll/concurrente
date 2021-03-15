@@ -12,7 +12,7 @@ public class HiloS8 extends Thread{
 
   public void run(){
     total = g + f;
-    System.out.println(name + ": " + g + " + " + f + " = " + total);
+    System.out.println(name + ": i = g + f = " + total);
   }
 
   public int getTotal(){

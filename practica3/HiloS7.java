@@ -10,7 +10,7 @@ public class HiloS7 extends Thread{
 
   public void run(){
     g = e + 5;
-    System.out.println(name + ": e + 5 = " + g);
+    System.out.println(name + ": g = e + 5 = " + g);
   }
 
   public int getG(){

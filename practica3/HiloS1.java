@@ -9,7 +9,7 @@ public class HiloS1 extends Thread{
 
   public void run(){
     a *= 2;
-    System.out.println(name + ": a * 2 = " + a);
+    System.out.println(name + ": a = x * 2 = " + a);
   }
 
   public int getA(){

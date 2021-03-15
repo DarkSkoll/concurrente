@@ -1,6 +1,7 @@
 public class HiloS5 extends Thread{
   private String name;
   private int d;
+  private int f;
 
   public HiloS5(String name, int d){
     this.name = name;
@@ -8,11 +9,11 @@ public class HiloS5 extends Thread{
   }
 
   public void run(){
-    d /= 3;
-    System.out.println(name + ": d / 3 = " + d);
+    f = d/3;
+    System.out.println(name + ": f = d / 3 = " + f);
   }
 
-  public int getD(){
-    return d;
+  public int getF(){
+    return f;
   }
 }

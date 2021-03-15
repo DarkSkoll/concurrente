@@ -9,7 +9,7 @@ public class HiloS3 extends Thread{
 
   public void run(){
     c += 15;
-    System.out.println(name + ": c + 15 = " + c);
+    System.out.println(name + ": c = z + 15 = " + c);
   }
 
   public int getC(){

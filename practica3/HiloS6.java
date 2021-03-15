@@ -1,21 +1,21 @@
 public class HiloS6 extends Thread{
   private String name;
-  private int d;
+  private int g;
   private int e;
   private int f;
 
-  public HiloS6(String name, int d, int e){
+  public HiloS6(String name, int f, int e){
     this.name = name;
-    this.d = d;
+    this.f = f;
     this.e = e;
   }
 
   public void run(){
-    f = d + e;
-    System.out.println(name + ": " + d + " + " + e + " = " + d);
+    g = f + e;
+    System.out.println(name + ": g = f + e  = " + g);
   }
 
-  public int getF(){
-    return f;
+  public int getG(){
+    return g;
   }
 }
