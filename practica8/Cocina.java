@@ -7,18 +7,31 @@ public class Cocina{
 
   public static void main(String[] args) {
     Thread cocinero = new Thread(new Cocinero());
-    Thread canibales = new Thread(new Canibales());
+    Thread canibal1 = new Thread(new Canibal(1));
+    Thread canibal2 = new Thread(new Canibal(2));
+    Thread canibal3 = new Thread(new Canibal(3));
+    Thread canibal4 = new Thread(new Canibal(4));
 
     cocinero.start();
-    canibales.start();
+    canibal1.start();
+    canibal2.start();
+    canibal3.start();
+    canibal4.start();
 
-    try {
-      Thread.sleep(9000);
-    } catch(Exception e){
-      e.printStackTrace();
+    while(true){
+      try {
+        Thread.sleep(50);
+      } catch(Exception e){
+        e.printStackTrace();
+      }
+      if(misioneros.availablePermits() == 0 && olla.availablePermits() == 0){
+        cocinero.stop();
+        canibal1.stop();
+        canibal2.stop();
+        canibal3.stop();
+        canibal4.stop();
+        break;
+      }
     }
-
-    cocinero.stop();
-    canibales.stop();
   }
 }
