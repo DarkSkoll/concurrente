@@ -1,7 +1,7 @@
-public class Oxigeno extends MoleculaAgua implements Runnable {
-  MonMol mc;
+public class Oxigeno implements Runnable {
+  Molecula mc;
 
-  public Oxigeno(MonMol mc) {
+  public Oxigeno(Molecula mc) {
     this.mc = mc;
   }
 

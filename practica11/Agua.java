@@ -1,7 +1,7 @@
-public class Agua extends MoleculaAgua implements Runnable {
-  MonMol mc;
+public class Agua implements Runnable {
+  Molecula mc;
 
-  public Agua(MonMol mc) {
+  public Agua(Molecula mc) {
     this.mc = mc;
   }
 

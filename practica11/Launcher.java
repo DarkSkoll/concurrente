@@ -1,6 +1,6 @@
-public class MoleculaAgua {
+public class Launcher {
   public static void main(String[] args) throws InterruptedException {
-    MonMol mc = new MonMol(0,0,0);
+    Molecula mc = new Molecula(0,0,0);
 
     Thread t = new Thread(new Oxigeno(mc));
     Thread p = new Thread(new Hidrogeno(mc));
