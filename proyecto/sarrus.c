@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
   long double DiagNeg = 0,DiagPos = 0;
   long double tmp[2];
   struct timeval inicio, fin;
-  float runtime, mips;
+  double runtime, mips;
   MPI_Status status;
 
   /*Inicia MPI e identifica tu id (rank) */
@@ -72,7 +72,17 @@ int main(int argc, char *argv[]){
     mips = (float )orden*(float )orden*(float )orden;
     mips /= runtime;
     mips /= 1000000.0;
-    printf("Execution time: %f secs. %f MIPS\n", runtime, mips );
+    printf("Execution time: %lf secs. %lf MIPS\n", runtime, mips );
+
+    FILE *file1;
+    file1 = fopen("datosTiempo.txt","a+");
+    //file1 = fopen("datosTiempo.dat","ab+");
+    if(file1 != NULL){
+      fprintf(file1,"%lf\n",runtime);
+      //fwrite(&tiempo,sizeof(double), 1, file1);
+    }
+    fflush(file1);
+    fclose(file1);
   }
 
   MPI_Finalize();
