@@ -28,12 +28,14 @@ int main(int argc, char *argv[]){
   llenarMatriz(A);
   start = MPI_Wtime();
   /*Envio y recepcion de mensajes*/
-  if(rank==0){
+  if(rank == 0){
     sarrusPorRank(rank,tmp,A);
     Diagonales[0] = tmp[0];
     Diagonales[1] = tmp[1];
-    MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
-  }else if(rank == numeroDeRanks - 1){
+    if(numeroDeRanks > 1) MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
+    else MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,0,tag,MPI_COMM_WORLD);
+  }
+  if(rank == numeroDeRanks - 1){
     MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
     sarrusPorRank(rank,tmp,A);
     Diagonales[0] += tmp[0];
@@ -47,6 +49,7 @@ int main(int argc, char *argv[]){
     printf("Pos final: %Le rank: %d\n",Diagonales[1],rank);
     printf("Neg final: %Le rank: %d\n",Diagonales[0],rank);
     printf("Determinante = %Le rank: %d\n",Diagonales[1]-Diagonales[0],rank);
+    printf("Tiempo: %lf rank: %d\n",end-start,rank);
     printf("\n");
 
     FILE *file1;
