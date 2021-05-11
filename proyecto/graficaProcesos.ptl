@@ -1,0 +1,7 @@
+set title "Tiempo de ejecución con distintos tamaños"
+set title font "Helvetica,14"
+set xlabel "Tamaño de matriz"
+set ylabel "Tiempo en segundos"
+set grid
+plot "tiempoOrdenes.txt" using 1:2 with linespoints lw 3 title "MPI"
+pause -1

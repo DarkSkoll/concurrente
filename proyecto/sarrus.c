@@ -1,7 +1,7 @@
 #include <mpi.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/time.h>
+//#include <sys/time.h>
 
 int numeroDeRanks;
 int orden;
@@ -20,8 +20,9 @@ int main(int argc, char *argv[]){
   long double tmpDiag[2];
   long double DiagNeg = 0,DiagPos = 0;
   long double tmp[2];
-  struct timeval inicio, fin;
-  double runtime, mips;
+  //struct timeval inicio, fin;
+  //double runtime, mips;
+  double start,end;
   MPI_Status status;
 
   /*Inicia MPI e identifica tu id (rank) */
@@ -32,8 +33,9 @@ int main(int argc, char *argv[]){
   llenarMatriz(A);
   /*Envio y recepcion de mensajes*/
   if(rank==0){
+    start = MPI_Wtime();
 
-    gettimeofday( &inicio, (struct timezone *)0 );
+    //gettimeofday( &inicio, (struct timezone *)0 );
     sarrusPorRank(0,tmp,A);
     DiagNeg += tmp[0];
     DiagPos += tmp[1];
@@ -42,6 +44,7 @@ int main(int argc, char *argv[]){
       DiagNeg += tmp[0];
       DiagPos += tmp[1];
     }
+    end = MPI_Wtime();
   }
   else{
     sarrusPorRank(rank,tmpDiag,A);
@@ -52,7 +55,7 @@ int main(int argc, char *argv[]){
 
   if(rank==0){
     /*Muestro resultados y el tiempo de ejecución*/
-    gettimeofday( &fin, (struct timezone *)0 );
+    //gettimeofday( &fin, (struct timezone *)0 );
 
     //imprimirMatriz(A);
     printf("\n\nSarrus calculation done.\n\n");
@@ -65,20 +68,20 @@ int main(int argc, char *argv[]){
     printf("\n");
 
 
-    runtime = (float )(fin.tv_sec - inicio.tv_sec)*1000000 +
+    /*runtime = (float )(fin.tv_sec - inicio.tv_sec)*1000000 +
       (float )(fin.tv_usec - inicio.tv_usec);
     runtime /= 1000000.0;
     mips = (float )orden*(float )orden*(float )orden;
     mips = (float )orden*(float )orden*(float )orden;
     mips /= runtime;
     mips /= 1000000.0;
-    printf("Execution time: %lf secs. %lf MIPS\n", runtime, mips );
+    printf("Execution time: %lf secs. %lf MIPS\n", runtime, mips );*/
 
     FILE *file1;
     file1 = fopen("datosTiempo.txt","a+");
     //file1 = fopen("datosTiempo.dat","ab+");
     if(file1 != NULL){
-      fprintf(file1,"%lf\n",runtime);
+      fprintf(file1,"%lf\n",end - start);
       //fwrite(&tiempo,sizeof(double), 1, file1);
     }
     fflush(file1);
@@ -91,7 +94,7 @@ int main(int argc, char *argv[]){
 void llenarMatriz(int matriz[orden][orden]){
   for(int i = 0; i < orden; i++){
     for(int j = 0; j < orden; j++){
-      matriz[i][j] = rand()%5+1;
+      matriz[i][j] = rand()%20+1;
     }
   }
 }
