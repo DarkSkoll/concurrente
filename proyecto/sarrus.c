@@ -33,13 +33,15 @@ int main(int argc, char *argv[]){
     Diagonales[0] = tmp[0];
     Diagonales[1] = tmp[1];
     if(numeroDeRanks > 1) MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
-    else MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,0,tag,MPI_COMM_WORLD);
+    //else MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,0,tag,MPI_COMM_WORLD);
   }
   if(rank == numeroDeRanks - 1){
-    MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
-    sarrusPorRank(rank,tmp,A);
-    Diagonales[0] += tmp[0];
-    Diagonales[1] += tmp[1];
+    if(numeroDeRanks > 1){
+      MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
+      sarrusPorRank(rank,tmp,A);
+      Diagonales[0] += tmp[0];
+      Diagonales[1] += tmp[1];
+    }
     end = MPI_Wtime();
     if(orden < 21) imprimirMatriz(A);
     printf("Sarrus calculation done.\n\n");
