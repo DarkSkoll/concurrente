@@ -1,7 +1,6 @@
 #include <mpi.h>
 #include <stdlib.h>
 #include <stdio.h>
-//#include <sys/time.h>
 
 int numeroDeRanks;
 int orden;
@@ -16,12 +15,9 @@ int main(int argc, char *argv[]){
 
   int A[orden][orden];
   int rank;
-  int tag=1,i;
-  long double tmpDiag[2];
-  long double DiagNeg = 0,DiagPos = 0;
+  int tag=1;
+  long double Diagonales[2];
   long double tmp[2];
-  //struct timeval inicio, fin;
-  //double runtime, mips;
   double start,end;
   MPI_Status status;
 
@@ -29,65 +25,44 @@ int main(int argc, char *argv[]){
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &numeroDeRanks);
   MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-
   llenarMatriz(A);
+  start = MPI_Wtime();
   /*Envio y recepcion de mensajes*/
   if(rank==0){
-    start = MPI_Wtime();
-
-    //gettimeofday( &inicio, (struct timezone *)0 );
-    sarrusPorRank(0,tmp,A);
-    DiagNeg += tmp[0];
-    DiagPos += tmp[1];
-    for(i=1; i<numeroDeRanks;i++){
-      MPI_Recv(tmp,2,MPI_LONG_DOUBLE,i,tag,MPI_COMM_WORLD,&status);
-      DiagNeg += tmp[0];
-      DiagPos += tmp[1];
-    }
+    sarrusPorRank(rank,tmp,A);
+    Diagonales[0] = tmp[0];
+    Diagonales[1] = tmp[1];
+    MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
+  }else if(rank == numeroDeRanks - 1){
+    MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
+    sarrusPorRank(rank,tmp,A);
+    Diagonales[0] += tmp[0];
+    Diagonales[1] += tmp[1];
     end = MPI_Wtime();
-  }
-  else{
-    sarrusPorRank(rank,tmpDiag,A);
-    tmp[0] = tmpDiag[0];
-    tmp[1] = tmpDiag[1];
-    MPI_Send(tmp,2,MPI_LONG_DOUBLE,0,tag,MPI_COMM_WORLD);
-  }
-
-  if(rank==0){
-    /*Muestro resultados y el tiempo de ejecución*/
-    //gettimeofday( &fin, (struct timezone *)0 );
-
-    //imprimirMatriz(A);
-    printf("\n\nSarrus calculation done.\n\n");
-    printf("Pos final: %Lf rank: %d\n",DiagPos,rank);
-    printf("Neg final: %Lf rank: %d\n",DiagNeg,rank);
-    printf("Determinante = %Lf\n",DiagPos-DiagNeg);
-    printf("Pos final: %Le rank: %d\n",DiagPos,rank);
-    printf("Neg final: %Le rank: %d\n",DiagNeg,rank);
-    printf("Determinante = %Le\n",DiagPos-DiagNeg);
+    if(orden < 21) imprimirMatriz(A);
+    printf("Sarrus calculation done.\n\n");
+    printf("Pos final: %Lf rank: %d\n",Diagonales[1],rank);
+    printf("Neg final: %Lf rank: %d\n",Diagonales[0],rank);
+    printf("Determinante = %Lf rank: %d\n",Diagonales[1]-Diagonales[0],rank);
+    printf("Pos final: %Le rank: %d\n",Diagonales[1],rank);
+    printf("Neg final: %Le rank: %d\n",Diagonales[0],rank);
+    printf("Determinante = %Le rank: %d\n",Diagonales[1]-Diagonales[0],rank);
     printf("\n");
-
-
-    /*runtime = (float )(fin.tv_sec - inicio.tv_sec)*1000000 +
-      (float )(fin.tv_usec - inicio.tv_usec);
-    runtime /= 1000000.0;
-    mips = (float )orden*(float )orden*(float )orden;
-    mips = (float )orden*(float )orden*(float )orden;
-    mips /= runtime;
-    mips /= 1000000.0;
-    printf("Execution time: %lf secs. %lf MIPS\n", runtime, mips );*/
 
     FILE *file1;
     file1 = fopen("datosTiempo.txt","a+");
-    //file1 = fopen("datosTiempo.dat","ab+");
     if(file1 != NULL){
       fprintf(file1,"%lf\n",end - start);
-      //fwrite(&tiempo,sizeof(double), 1, file1);
     }
     fflush(file1);
     fclose(file1);
+  }else{
+    MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
+    sarrusPorRank(rank,tmp,A);
+    Diagonales[0] += tmp[0];
+    Diagonales[1] += tmp[1];
+    MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
   }
-
   MPI_Finalize();
 }
 
@@ -140,5 +115,4 @@ void sarrusPorRank(int rank,long double DiagArray[2],int matriz[orden][orden]){
   //printf("Pos final: %Lf rank: %d\n",DiagArray[1],rank);
   //printf("Neg final: %Lf rank: %d\n",DiagArray[0],rank);
   printf("finished rank %d\n", rank);
-  printf("\n");
 }
