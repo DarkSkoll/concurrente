@@ -1,7 +1,7 @@
-set title "Tiempo de ejecución con distintos tamaños"
+set title "Tiempo de ejecución con distintos procesos"
 set title font "Helvetica,14"
-set xlabel "Tamaño de matriz"
+set xlabel "Numero de Procesos"
 set ylabel "Tiempo en segundos"
 set grid
-plot "tiempoOrdenes.txt" using 1:2 with linespoints lw 3 title "MPI"
+plot "tiempoProcesos.txt" using 1:2 with linespoints lw 3 title "tiempo"
 pause -1

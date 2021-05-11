@@ -1,0 +1,76 @@
+\documentclass[10pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\interdisplaylinepenalty=2500
+\bibliographystyle{ieeetr}
+
+\title{Método Sarrus paralelo extendido a matrices de tamaño mayor a 3}
+\author{
+  \IEEEauthorblockN{Blancarte Lopez Jorge,
+  Lievana Poy Erick and
+  Ocampo Alvarez Jose Alvaro}\\
+  \IEEEauthorblockA{Facultad de Ciencias de la Computación,
+  Benemérita Universidad Autónoma de Puebla
+  Email:jorge.blancarte@alumno.buap.mx,
+  erick.lievanap@alumno.buap.mx,
+  jose.ocampo@alumno.buap.mx}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  En este trabajo se analiza la eficiencia de la programación paralela con el uso de las librerias de OpenMPI para el cálculo de la regla extendida de Sarrus para matrices mayores a $3x3$. Se compararan los tiempos del algoritmo secuencial y el algoritmo paralelo.
+\end{abstract}
+
+\begin{IEEEkeywords}
+  Algoritmo, Paralelo, Secuencial, Tiempo, MPI, Procesos.
+\end{IEEEkeywords}
+
+\section{Introducción}
+
+Para el presente se tiene por objetivo aplicar y crear un escenario comparativo de la ejecución de la regla de Sarrus extendida de forma secuencial contra su forma paralelizada para eso se implementaron en el lenguaje de programación C con el uso de las librerias de OpenMPI, la regla de Sarrus extendida.
+
+\section{Antecedentes}
+
+\subsection{Regla de Sarrus Extendida}
+La regla de Sarrus es un método fácil para memorizar y calcular un determinante $3×3$. Recibe su nombre del matemático francés Pierre Frédéric Sarrus, que la introdujo en el artículo \textit{Nouvelles méthodes pour la résolution des équations}, publicado en Estrasburgo en 1833.
+
+\begin{equation}
+  \left[\begin{IEEEeqnarraybox*}[][c]{,c/c/c,}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23} \\
+    a_{31} & a_{32} & a_{33}
+  \end{IEEEeqnarraybox*}\right]
+\end{equation}
+
+Dada la anterior matriz de $3x3$ se puede calcular su determinante de la siguiente forma:
+
+\begin{align}
+  det = &+
+  a_{11} a_{22} a_{33} +
+  a_{21} a_{32} a_{13} +
+  a_{31} a_{12} a_{23}\\
+  &-
+  a_{13} a_{22} a_{31} -
+  a_{23} a_{32} a_{11} -
+  a_{33} a_{12} a_{21}
+\end{align}
+
+\subsection{MPI}
+MPI (iniciales de Message Passing Interface) es una especificación para programación de paso de mensajes, que proporciona una librer´ıa de funciones para C, C++ y Fortran que son empleadas en los programas para comunicar datos y portable, especificada por consenso por el MPI Forum, con unas 40 organizaciones participantes, como modelo que permita desarrollar programas que puedan ser migrados a diferentes computadores paralelos.
+
+Definido conjuntamente por proveedores de hardware y de software, OpenMP es un modelo de programación portable y escalable que proporciona a los programadores una interfaz simple y flexible para el desarrollo de aplicaciones paralelas, para plataformas que van desde las computadoras de escritorio hasta supercomputadoras.
+
+\section{Desarrollo}
+
+\section{Resultados}
+
+\section{Conclusiones}
+
+\section{Referencias}
+{[1]} Fox G., M. Johnson, G. Lyzenga, S. Otto, J. Salmon, and D. Walker, Solving Problems on Concurrent Processors, Vol. I, Prentice Hall, Englewood Cliffs, New Jersey, 1988.
+
+\end{document}

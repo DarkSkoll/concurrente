@@ -61,7 +61,8 @@ int main(int argc, char *argv[]){
     }
     fflush(file1);
     fclose(file1);
-  }else{
+  }
+  if(rank != 0 && rank != numeroDeRanks - 1){
     MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
     sarrusPorRank(rank,tmp,A);
     Diagonales[0] += tmp[0];

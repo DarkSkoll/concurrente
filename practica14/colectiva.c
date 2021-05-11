@@ -1,7 +1,6 @@
 #include <mpi.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/time.h>
 
 int numeroDeRanks;
 int orden = 10;
@@ -15,55 +14,46 @@ int main(int argc, char *argv[]){
   int A[orden][orden], B[orden][orden], C[orden][orden];
   int rank;
   int tag=1,i;
-  struct timeval inicio, fin;
-  float runtime, mips;
   int temporal[orden][orden];
+  double start,end;
   MPI_Status status;
 
   /*Inicia MPI e identifica tu id (rank) */
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &numeroDeRanks);
   MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-
+  start = MPI_Wtime();
   llenarMatriz(A);
   llenarMatriz(B);
   /*Envio y recepcion de mensajes*/
-  if(rank==0){
-
-    gettimeofday( &inicio, (struct timezone *)0 );
-    multiplicacionMatricesPorRank(0,C,A,B);
-    for(i=1; i<numeroDeRanks;i++){
-      MPI_Recv(temporal, orden*orden, MPI_INT, i, tag, MPI_COMM_WORLD, &status);
-      copiarRenglonesPorRank(i,temporal,C);
-    }
-  }
-  else{
+  if(rank == 0){
     multiplicacionMatricesPorRank(rank,temporal,A,B);
-    MPI_Send(temporal, orden*orden, MPI_INT, 0, tag, MPI_COMM_WORLD);
+    copiarRenglonesPorRank(rank,temporal,C);
+    if(numeroDeRanks > 1) MPI_Send(C,orden*orden,MPI_INT,rank+1,tag,MPI_COMM_WORLD);
   }
-
-  if(rank==0){
-    /*Muestro resultados y el tiempo de ejecución*/
-    gettimeofday( &fin, (struct timezone *)0 );
+  if(rank == numeroDeRanks - 1){
+    if(numeroDeRanks > 1){
+      MPI_Recv(C,orden*orden,MPI_INT,rank-1,tag,MPI_COMM_WORLD,&status);
+      multiplicacionMatricesPorRank(rank,temporal,A,B);
+      copiarRenglonesPorRank(rank,temporal,C);
+    }
+    end = MPI_Wtime();
 
     imprimirMatriz(A);
     printf("\n");
     imprimirMatriz(B);
-    printf("\n\nMatrix multiplication done.\n\n");
+    printf("\nMatrix multiplication done.\n\n");
     imprimirMatriz(C);
     printf("\n");
-
-
-    runtime = (float )(fin.tv_sec - inicio.tv_sec)*1000000 +
-      (float )(fin.tv_usec - inicio.tv_usec);
-    runtime /= 1000000.0;
-    mips = (float )orden*(float )orden*(float )orden;
-    mips = (float )orden*(float )orden*(float )orden;
-    mips /= runtime;
-    mips /= 1000000.0;
-    printf("Execution time: %f secs. %f MIPS\n", runtime, mips );
+    printf("Tiempo: %lf rank: %d\n",end-start,rank);
+    printf("\n");
   }
-
+  if(rank != 0 && rank != numeroDeRanks - 1){
+    MPI_Recv(C,orden*orden,MPI_INT,rank-1,tag,MPI_COMM_WORLD,&status);
+    multiplicacionMatricesPorRank(rank,temporal,A,B);
+    copiarRenglonesPorRank(rank,temporal,C);
+    MPI_Send(C,orden*orden,MPI_INT,rank+1,tag,MPI_COMM_WORLD);
+  }
   MPI_Finalize();
 }
 
