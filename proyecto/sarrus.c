@@ -25,19 +25,22 @@ int main(int argc, char *argv[]){
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &numeroDeRanks);
   MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-  llenarMatriz(A);
   start = MPI_Wtime();
   /*Envio y recepcion de mensajes*/
   if(rank == 0){
+    llenarMatriz(A);
     sarrusPorRank(rank,tmp,A);
     Diagonales[0] = tmp[0];
     Diagonales[1] = tmp[1];
-    if(numeroDeRanks > 1) MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
-    //else MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,0,tag,MPI_COMM_WORLD);
+    if(numeroDeRanks > 1){
+      MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
+      MPI_Send(A,orden*orden,MPI_INT,rank+1,tag,MPI_COMM_WORLD);
+    }
   }
   if(rank == numeroDeRanks - 1){
     if(numeroDeRanks > 1){
       MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
+      MPI_Recv(A,orden*orden,MPI_INT,rank-1,tag,MPI_COMM_WORLD,&status);
       sarrusPorRank(rank,tmp,A);
       Diagonales[0] += tmp[0];
       Diagonales[1] += tmp[1];
@@ -64,10 +67,12 @@ int main(int argc, char *argv[]){
   }
   if(rank != 0 && rank != numeroDeRanks - 1){
     MPI_Recv(Diagonales,2,MPI_LONG_DOUBLE,rank-1,tag,MPI_COMM_WORLD,&status);
+    MPI_Recv(A,orden*orden,MPI_INT,rank-1,tag,MPI_COMM_WORLD,&status);
     sarrusPorRank(rank,tmp,A);
     Diagonales[0] += tmp[0];
     Diagonales[1] += tmp[1];
     MPI_Send(Diagonales,2,MPI_LONG_DOUBLE,rank+1,tag,MPI_COMM_WORLD);
+    MPI_Send(A,orden*orden,MPI_INT,rank+1,tag,MPI_COMM_WORLD);
   }
   MPI_Finalize();
 }
