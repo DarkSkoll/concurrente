@@ -5,8 +5,11 @@
 \usepackage{amsmath}
 \usepackage{algorithm2e}
 \usepackage{listings}
+\usepackage{caption}
 \interdisplaylinepenalty=2500
 \bibliographystyle{ieeetr}
+
+\captionsetup[figure]{justification=centering}
 
 \lstset{frame=tb,
 language=C,
@@ -109,7 +112,6 @@ A partir de esta matriz podemos deducir que las diagonales descendientes seran l
 \end{equation}
 
 \begin{algorithm}
-  \label{algoDes}
   \SetAlgoLined
   \KwResult{Calcular las diagonales descendentes}
   \For{i = 0; i\textless n; i++}{
@@ -124,11 +126,12 @@ A partir de esta matriz podemos deducir que las diagonales descendientes seran l
     totalDiagonalesAscendentes = diagonalActual\;
   }
   \caption{Algoritmo para calcular las diagonales descendientes}
+  \label{algoDes}
 \end{algorithm}
 
 Por lo que basandonos en la manera general para recorrer matrices, podemos crear el algoritmo \ref{algoDes}, seran 2 ciclos \textit{for} que recorreran la matriz. La primera diagonal siempre la diagonal donde ambos indices son iguales es decir $a_{kk}$ por lo que cuando $i = 0$ como $i + j$ no puede ser mayor que $n$ entonces $a_{(i+j)j} = a_{jj}$. Para casos donde $i > 0$ podemos observar que habra un punto donde $i + j >= n$ y en esta situacion se usara $a_{((i+j)-n)j}$ y para el caso donde $i + j = n$ se reiniciara el indice de las filas a $0$ lo que hace posible calcular las diagonales descendientes sin repetir renglones de la matriz.
 
-Para el caso de las diagonales ascendentes, tenemos que las diagonales generadas tendran las forma presentada en la ecuación \ref{eq:diagNeg}. Podemos observar ahora el indice de las columnas va de $n$ a $0$ mientras que el de las filas se mantiene con la misma logica que el de las diagonales ascendentes, por que lo que es posible modificar el algoritmo \ref{algoFinal} para tambien calcular las diagonales descendientes para tambien calcular las diagonales ascendentes.
+Para el caso de las diagonales ascendentes, tenemos que las diagonales generadas tendran las forma presentada en la ecuación \ref{eq:diagNeg}. Podemos observar ahora el indice de las columnas va de $n$ a $0$ mientras que el de las filas se mantiene con la misma logica que el de las diagonales ascendentes, por que lo que es posible modificar el algoritmo \ref{algoDes}  en el algoritmo \ref{algoFinal} para tambien calcular las diagonales descendientes para tambien calcular las diagonales ascendentes.
 
 \begin{equation}
   \label{eq:diagNeg}
@@ -141,7 +144,6 @@ Para el caso de las diagonales ascendentes, tenemos que las diagonales generadas
 \end{equation}
 
 \begin{algorithm}
-  \label{algoFinal}
   \SetAlgoLined
   \KwResult{Calcular todas las diagonales}
   \For{i = 0; i\textless n; i++}{
@@ -160,6 +162,7 @@ Para el caso de las diagonales ascendentes, tenemos que las diagonales generadas
     totalNegativas += diagonalActualNegativa\;
   }
   \caption{Algoritmo para calcular todas las diagonales}
+  \label{algoFinal}
 \end{algorithm}
 
 \subsection{MPI}
@@ -167,17 +170,17 @@ MPI (iniciales de Message Passing Interface) es una especificación para program
 
 Definido conjuntamente por proveedores de hardware y de software, OpenMP es un modelo de programación portable y escalable que proporciona a los programadores una interfaz simple y flexible para el desarrollo de aplicaciones paralelas, para plataformas que van desde las computadoras de escritorio hasta supercomputadoras.
 
-Para este problema desarrollamos un programa en el lenguaje de programación C usando openMPI con un tipo de comunicacion de punto a punto lineal esto significa que los procesos envian la información procesada al siguiente proceso en el rank asi como en la figura \ref{fig:lineal}. Al final es el ultimo proceso en el rank el que junta toda la información y la muestra o guarda.
+Para este problema desarrollamos un programa en el lenguaje de programación C usando openMPI con un tipo de comunicacion de punto a punto lineal esto significa que los procesos envian la información procesada al siguiente proceso en el rank asi como en la Figura \ref{fig:lineal}. Al final es el ultimo proceso en el rank el que junta toda la información y la muestra o guarda.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\linewidth]{lineal.png}
-  \caption{Comunicación lineal entre 4 procesos}%
+  \caption{Comunicación lineal entre 4 procesos}
   \label{fig:lineal}
 \end{figure}
 
 \section{Desarrollo}
-Para desarrollar este experimento es necesario implementar el algoritmo \ref{algoFinal} en lenguaje C de forma que cada proceso pueda calcular cierta cantidad de diagonales y aportarlas a la suma de las diagonales descendentes y las diagonales ascendentes respectivamente. Asi mismo para representar la comunicación de punto a punto lineal es necesario que los procesos se comuniquen entre si y envien los resultados de sus ejecuciones. Al final del reporte se anexara la totalidad del codigo.
+Para desarrollar este experimento es necesario implementar el algoritmo \ref{algoFinal} en lenguaje C de forma que cada proceso pueda calcular cierta cantidad de diagonales y aportarlas a la suma de las diagonales descendentes y las diagonales ascendentes respectivamente. Asi mismo para representar la comunicación de punto a punto lineal es necesario que los procesos se comuniquen entre si y envien los resultados de sus ejecuciones. Al final del reporte se anexara la totalidad del codigo fuente.
 
 \subsection{Implementación de Sarrus Paralelo}
 Como mencionamos debemos permitir que cada proceso calcule solo un cierto rango de diagonales, como cada diagonal inicia con el primer elemento de una fila, entonces hay tantas diagonales como filas tiene las matriz, por lo que al dividir $n$ entre el numero total de procesos obtendremos el tamaño de los rangos, y al multiplicarlos por el rank de cada proceso podemos obtener el inicio de cada rango. Para esto se implemento el codigo del listing \ref{lst:sarrus} en C.
@@ -221,7 +224,7 @@ La siguiente parte hace la declaración de las variables de apoyo que se usaran 
 En la siguiente parte anunciamos que proceso esta haciendo el calculo e implementamos el algoritmo \ref{algoFinal}, para paralelizarlo solo vamos a recorrer el rango de diagonales calculado en la primera parte. Para ello nuestra variable $i$ solo debera recorrer desde el valor de la variable $from$ hasta el valor de la variable $to$. Y se guardan los resultados en el vector de resulstados $DiagArray$ siendo el indice $0$ los resultados de las diagonales ascendentes y el indice $1$ los resultados de las diagonales descendentes. Finalmente el proceso reporta su finalización.
 
 \subsection{Implentación Comunicación Punto a Punto}
-Como se ve en la figura \ref{fig:lineal} los procesos desde el mas bajo hasta el penultimo, envian sus resultados al proceso que les sigue, es decir el proceso $k$ envia su información al proceso $k+1$. Para esto MPI ofrece las funciones \textit{MPI\textunderscore Recv} y \textit{MPI\textunderscore Send} que permiten enviar información entre los procesos. Con estas funciones podemos implementar el codigo dle listing \ref{lst:lineal} en C.
+Como se ve en la Figura \ref{fig:lineal} los procesos desde el mas bajo hasta el penultimo, envian sus resultados al proceso que les sigue, es decir el proceso $k$ envia su información al proceso $k+1$. Para esto MPI ofrece las funciones \textit{MPI\textunderscore Recv} y \textit{MPI\textunderscore Send} que permiten enviar información entre los procesos. Con estas funciones podemos implementar el codigo dle listing \ref{lst:lineal} en C.
 
 \begin{lstlisting}[caption={Implementacion de Comunicación Lineal},label={lst:lineal}]
 if(rank == 0){
@@ -271,9 +274,9 @@ if(rank != 0 && rank != numeroDeRanks - 1){
 }
 \end{lstlisting}
 
-En el listing \ref{lst:lineal} que pertenece a la función main del programa, lo primero que se puede notar es que se checa que si el rank del proceso es 0, esto es importante ya que cada programa MPI tendra por lo menos un proceso cuyo rank sera 0. En este caso el proceso con rank 0, llamara a la función vista en el listing \ref{lst:sarrus} le pasara su rank que es cero, un array $tmp$ que es donde guardaran los resultados temporalmente y finalmente la matriz $A$. Una vez ejecutada la función los resultados guardados en el array $tmp$ seran guardados en el array \textit{Diagonales} que almanaceran los resultados definitivos. Despues si hay mas de 1 proceso, entonces el proceso con rank 0 enviara el array \textit{Diagonales} y la matriz al siguiente proceso. En caso de ser solo el proceso con rank 0 no se enviara ninguna información.
+En el listing \ref{lst:lineal} que pertenece a la función main del programa, lo primero que se puede notar es que se checa que si el rank del proceso es 0, esto es importante ya que cada programa MPI tendra por lo menos un proceso cuyo rank sera 0. En este caso el proceso con rank 0, llamara a la función vista en el listing \ref{lst:sarrus} le pasara su rank que es cero, un array \textit{tmp} que es donde guardaran los resultados temporalmente y finalmente la matriz $A$. Una vez ejecutada la función los resultados guardados en el array \textit{tmp} seran guardados en el array \textit{Diagonales} que almanaceran los resultados definitivos. Despues si hay mas de 1 proceso, entonces el proceso con rank 0 enviara el array \textit{Diagonales} y la matriz al siguiente proceso. En caso de ser solo el proceso con rank 0 no se enviara ninguna información.
 
-Despues se checara si el proceso es el ultimo proceso, en caso de ser el último proceso se checara si hay mas de un proceso, esto para el caso donde solo haya un solo proceso, en este caso el procesos con rank 0 es el primer y el ultimo proceso, en caso de que sea asi y solo hay un proceso no se recibira nada de otro proceso y tampoco hay que volver a llamar la función de listing \ref{lst:sarrus} y por lo tanto no hay cambio a los resultados por lo que se puede pasar directamente al manejor de resultados. En caso de que si haya mas de un proceso, entonces se recibe la información otorgada por el penultimo proceso y el ultimo procesos hace sus ejecuciones correspondientes al llamar la funcion del listing \ref{lst:sarrus} pasando su rank, el array $tmp$ y la matriz A, despues calcula los resultados finales al sumarle al array \textit{Diagonales} los resultados guardados temporalmente en el array $tmp$.
+Despues se checara si el proceso es el ultimo proceso, en caso de ser el último proceso se checara si hay mas de un proceso, esto para el caso donde solo haya un solo proceso, en este caso el procesos con rank 0 es el primer y el ultimo proceso, en caso de que sea asi y solo hay un proceso no se recibira nada de otro proceso y tampoco hay que volver a llamar la función de listing \ref{lst:sarrus} y por lo tanto no hay cambio a los resultados por lo que se puede pasar directamente al manejor de resultados. En caso de que si haya mas de un proceso, entonces se recibe la información otorgada por el penultimo proceso y el ultimo procesos hace sus ejecuciones correspondientes al llamar la funcion del listing \ref{lst:sarrus} pasando su rank, el array \textit{tmp} y la matriz A, despues calcula los resultados finales al sumarle al array \textit{Diagonales} los resultados guardados temporalmente en el array \textit{tmp}.
 
 Para mostrar los resultados el ultimo proceso, los mostrara en pantalla con la funcion \textit{printf} de manera normal asi como en notación cientifica esto debido a que se generan números muy grandes hasta del orden $10^{1400}$ aproximadamente.
 
@@ -282,13 +285,220 @@ De igual forma el ultimo proceso es responsable de guardar los distintos tiempos
 Finalmente aquellos procesos que no tengan rank $0$ o sean el ultimo rank, primero recibiran la matriz y los resultados del procesos con rank anterior, ejecutaran la función vista en el listing \ref{lst:sarrus} guardaran los resultados en el array \textit{Diagonales} y pasaran la matriz y el array \textit{Diagonales} al siguiente proceso.
 
 \section{Resultados}
-Es importante resaltar que los resultados obtenidos como vimos se componen de números grandes del orden de $10^{1400}$ esto debido a los tamaños de las matrices. Sin embargo en este trabajo no nos concentraremos en los resultados si no en los tiempos de ejecución. Para ello habran 2 categorias una donde se comparan los tiempo de ejecución con distintos números de procesos,
+Es importante resaltar que los resultados obtenidos como vimos se componen de números grandes del orden de $10^{1400}$ esto debido a los tamaños de las matrices. Sin embargo en este trabajo no nos concentraremos en los resultados si no en los tiempos de ejecución. Para ello habran 2 categorias una donde se comparan los tiempo de ejecución con distintos números de procesos, y en la otra categoria el tiempo de ejecución en base al tamaño de la matriz.
 
 \subsection{Ejecución con distintos procesos}
+Como primer punto es importante comprobar que independientemente del numero de procesos el programa devuelve resultados iguales a entradas iguales. Por lo que ejecutamos el programa con una mátricula de 20x20 con los mismos datos y ejecutamos el programa con 1 y con 4 procesos. Para comprobar que estos sean iguales.
+
+\begin{figure}%[!H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{20x20np1.png}
+  \caption{Ejecución con 1 proceso}
+  \label{fig:20x20np1}
+\end{figure}
+
+\begin{figure}%[!H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{20x20np4.png}
+  \caption{Ejecución con 4 procesos}%
+  \label{fig:20x20np4}
+\end{figure}
+
+En las figuras \ref{fig:20x20np1} y \ref{fig:20x20np4} los resultados para ambas matrices es el mismo $8.322913x10^{20}$ esto nos permite saber que el número de procesos no afecta el resultado obtenido. Por lo que podemos comparar los tiempos de ejecución del programa en base al número de procesos usados. Para esta categoria se haran las pruebas con las siguientes condiciones:
+
+\begin{itemize}
+  \item Número de Procesos: 1,2,3,4
+  \item Tamaño de matriz fijo $100$x$100$
+\end{itemize}
+
+Los resultados obtenidos nos indican que en general el procesamiento de datos es agilizado en base al numero de procesos usados. Como podemos ver en la tabla \ref{tab:procesos} y en la gráfica de la figura \ref{fig:tiempoProcesos} cuando ejecutamos el programa con 1 proceso es como ejecutarlo de manera secuencial ya que solo un proceso calcula todas las diagonales. En cambio con mas procesos estos pueden dividirse las diagonales y calcularlas de manera parela lo que incrementa la eficiencia del programa y reduce los tiempos. Y como podemos ver en la tabla \ref{tab:procesos} tenemos una mejora de hasta $65\%$ en los tiempos de ejecución.
+
+\begin{table}
+  \centering
+  \caption{Tiempos de ejecución con distintos numeros de procesos}
+  \label{tab:procesos}
+  \begin{tabular}{|c|c|}
+    \hline
+    No. de Procesos & Tiempo de Ejecucion(s) \\ \hline
+    1 & 0.000196\\ \hline
+    2 & 0.000145\\ \hline
+    3 & 0.000095\\ \hline
+    4 & 0.000090\\ \hline
+  \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{tiempoProcesos.png}
+  \caption{Gráfica de los tiempo de ejecución respecto al numero de procesadores}
+  \label{fig:tiempoProcesos}
+\end{figure}
+
+\subsection{Ejecución con distinos tamaños de matrices}
+Como ya vimos el número de procesos no afecta el resultado y mejora los tiempos de ejecución. El siguiente paso es ver como afecta el tamaño de la matriz al tiempo de ejecución tanto para 1 proceso que seria la forma secuencial y ver como 4 procesos mejoran la eficiencia del programa al ser una ejecución paralela. Para este caso se tendran las condiciones:
+
+\begin{itemize}
+  \item Tamaño de la matriz incrementando de 10 en 10, empezando con una matriz de 10x10 y finalizando con una matriz de 1400x1400
+  \item Se ejecutaran estas matrices con 1 proceso y con 4 procesos.
+\end{itemize}
+
+Como podemos observar en las figuras \ref{fig:4np} y \ref{fig:1np} los tiempos tiempos de ejecución con 4 procesos a pesar de ser mas variables, incluso el tiempo mas largo apenas supera $0.035$ segundos, mientras que los tiempos alcanzados con 1 proceso superan los $0.05$ segundos. Esta diferencia es considerable ya que es una mejora del $30\%$.
+
+\begin{figure}%[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{tiempoOrdenes.png}
+  \caption{Tiempo de ejecución con 4 procesos para matrices de tamaños de 10x10 hasta 1400}
+  \label{fig:4np}
+\end{figure}
+
+\begin{figure}%[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{tiempoOrdenesnp1.png}
+  \caption{Tiempo de ejecución con 1 proceso para matrices de tamaños de 10x10 hasta 1400}
+  \label{fig:1np}
+\end{figure}
 
 \section{Conclusiones}
+Como lo muestran los resultados, el uso de algoritmos y programación paralela trae consigo una mejora considerable en los tiempos de ejecución sin afectar los resultados de los programas que la usan. Para este trabajo tuvimos mejoras desde el $30\%$ hasta de $65\$$ lo cual nos muestra que la programación paralela es sumamente eficiente.
 
 \section{Referencias}
 {[1]} Fox G., M. Johnson, G. Lyzenga, S. Otto, J. Salmon, and D. Walker, Solving Problems on Concurrent Processors, Vol. I, Prentice Hall, Englewood Cliffs, New Jersey, 1988.
+{[1]} Almeida, F. Giménez, D. Mantas, J.M., Vidal A. Introducción a la Programación Paralela, Paraninfo CENGAGE Learning, España, 2010.
 
+\clearpage
+
+\section{Anexo}
+En este anexo podra encontrar el codigo completo del programa implementado.
+
+\begin{lstlisting}
+#include <mpi.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int numeroDeRanks;
+int orden;
+
+void llenarMatriz(int matriz[orden][orden]);
+void imprimirMatriz(int matriz[orden][orden]);
+void sarrusPorRank(int rank, long double DiagArray[2], int matriz[orden][orden]);
+
+int main(int argc, char *argv[]){
+  if(argc != 2) return 0;
+  sscanf(argv[1], "%d", &orden);
+
+  int A[orden][orden];
+  int rank;
+  int tag=1;
+  long double Diagonales[2];
+  long double tmp[2];
+  double start,end;
+  MPI_Status status;
+
+  /*Inicia MPI e identifica tu id (rank) */
+  MPI_Init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &numeroDeRanks);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  start = MPI_Wtime();
+  /*Envio y recepcion de mensajes*/
+  if(rank == 0){
+    llenarMatriz(A);
+    sarrusPorRank(rank,tmp,A);
+    Diagonales[0] = tmp[0];
+    Diagonales[1] = tmp[1];
+    if(numeroDeRanks > 1){
+      MPI_Send(Diagonales, 2, MPI_LONG_DOUBLE, rank+1, tag, MPI_COMM_WORLD);
+      MPI_Send(A, orden*orden, MPI_INT, rank+1, tag, MPI_COMM_WORLD);
+    }
+  }
+  if(rank == numeroDeRanks - 1){
+    if(numeroDeRanks > 1){
+      MPI_Recv(Diagonales, 2, MPI_LONG_DOUBLE, rank-1, tag, MPI_COMM_WORLD, &status);
+      MPI_Recv(A, orden*orden, MPI_INT, rank-1, tag, MPI_COMM_WORLD, &status);
+      sarrusPorRank(rank,tmp,A);
+      Diagonales[0] += tmp[0];
+      Diagonales[1] += tmp[1];
+    }
+    end = MPI_Wtime();
+    if(orden < 21) imprimirMatriz(A);
+    printf("Sarrus calculation done.\n\n");
+    printf("Pos final: %Lf rank: %d\n",Diagonales[1],rank);
+    printf("Neg final: %Lf rank: %d\n",Diagonales[0],rank);
+    printf("Determinante = %Lf rank: %d\n",Diagonales[1]-Diagonales[0],rank);
+    printf("Pos final: %Le rank: %d\n",Diagonales[1],rank);
+    printf("Neg final: %Le rank: %d\n",Diagonales[0],rank);
+    printf("Determinante = %Le rank: %d\n",Diagonales[1]-Diagonales[0],rank);
+    printf("Tiempo: %lf rank: %d\n",end-start,rank);
+    printf("\n");
+
+    FILE *file1;
+    file1 = fopen("datosTiempo.txt","a+");
+    if(file1 != NULL){
+      fprintf(file1,"%lf\n",end - start);
+    }
+    fflush(file1);
+    fclose(file1);
+  }
+  if(rank != 0 && rank != numeroDeRanks - 1){
+    MPI_Recv(Diagonales, 2, MPI_LONG_DOUBLE, rank-1, tag, MPI_COMM_WORLD, &status);
+    MPI_Recv(A, orden*orden, MPI_INT, rank-1, tag, MPI_COMM_WORLD, &status);
+    sarrusPorRank(rank,tmp,A);
+    Diagonales[0] += tmp[0];
+    Diagonales[1] += tmp[1];
+    MPI_Send(Diagonales, 2, MPI_LONG_DOUBLE, rank+1, tag, MPI_COMM_WORLD);
+    MPI_Send(A, orden*orden, MPI_INT, rank+1, tag, MPI_COMM_WORLD);
+  }
+  MPI_Finalize();
+}
+
+void llenarMatriz(int matriz[orden][orden]){
+  for(int i = 0; i < orden; i++){
+    for(int j = 0; j < orden; j++){
+      matriz[i][j] = rand()%20+1;
+    }
+  }
+}
+
+void imprimirMatriz(int matriz[orden][orden]){
+  printf("\n");
+  for(int i = 0; i < orden; i++){
+    printf("\t|");
+    for(int j = 0; j < orden; j++){
+      printf("%2d|",matriz[i][j]);
+    }
+    printf("\n");
+  }
+}
+
+void sarrusPorRank(int rank, long double DiagArray[2], int matriz[orden][orden]){
+  int from = (rank * orden)/numeroDeRanks;
+  int to = ((rank+1) * orden)/numeroDeRanks;
+  long double temporalNegativa;
+  long double temporalPositiva;
+  int i,j;
+  int fila;
+  DiagArray[0] = 0;
+  DiagArray[1] = 0;
+
+  printf("computing rank %d (from row %d to %d)\n", rank, from, to-1);
+  for(i = from; i < to; i++){
+    temporalNegativa = 1;
+    temporalPositiva = 1;
+    for(j = 0; j < orden; j++){
+      fila = i+j;
+      if(fila >= orden){
+        fila -= orden;
+      }
+      temporalPositiva *= matriz[fila][j];
+      //printf("Pos: A[%d][%d]\n",fila,j);
+      temporalNegativa *= matriz[fila][(orden-1)-j];
+      //printf("Neg: A[%d][%d]\n",fila,(orden-1)-j);
+    }
+    DiagArray[0] += temporalNegativa;
+    DiagArray[1] += temporalPositiva;
+  }
+  //printf("Pos final: %Lf rank: %d\n",DiagArray[1],rank);
+  //printf("Neg final: %Lf rank: %d\n",DiagArray[0],rank);
+  printf("finished rank %d\n", rank);
+}
+\end{lstlisting}
 \end{document}

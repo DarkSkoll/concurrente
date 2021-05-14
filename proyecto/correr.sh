@@ -31,11 +31,12 @@ function procesos(){
   done
 }
 
-procesos
+#procesos
 ordenes
 
 paste ordenes.txt datosTiempo.txt > tiempoOrdenes.txt
-paste procesos.txt datosTiempo.txt > tiempoProcesos.txt
+#paste procesos.txt datosTiempo.txt > tiempoProcesos.txt
 
-gnuplot graficaProcesos.ptl
+#gnuplot graficaProcesos.ptl
 gnuplot graficaOrdenes.ptl
+

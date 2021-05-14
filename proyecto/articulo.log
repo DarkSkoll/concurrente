@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.5.4)  11 MAY 2021 00:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.5.4)  13 MAY 2021 20:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -208,127 +208,277 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 LaTeX Info: Redefining \[ on input line 2923.
 LaTeX Info: Redefining \] on input line 2924.
 )
+(/usr/share/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count271
+
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\algocf@hangindent=\skip53
+
+(/usr/share/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count272
+)
+(/usr/share/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/share/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip54
+\skiplinenumber=\skip55
+\skiprule=\skip56
+\skiphlne=\skip57
+\skiptext=\skip58
+\skiplength=\skip59
+\algomargin=\skip60
+\skipalgocfslide=\skip61
+\algowidth=\dimen173
+\inoutsize=\dimen174
+\inoutindent=\dimen175
+\interspacetitleruled=\dimen176
+\interspacealgoruled=\dimen177
+\interspacetitleboxruled=\dimen178
+\algocf@ruledwidth=\skip62
+\algocf@inoutbox=\box53
+\algocf@inputbox=\box54
+\AlCapSkip=\skip63
+\AlCapHSkip=\skip64
+\algoskipindent=\skip65
+\algocf@nlbox=\box55
+\algocf@hangingbox=\box56
+\algocf@untilbox=\box57
+\algocf@skipuntil=\skip66
+\algocf@capbox=\box58
+\algocf@lcaptionbox=\skip67
+\algoheightruledefault=\skip68
+\algoheightrule=\skip69
+\algotitleheightruledefault=\skip70
+\algotitleheightrule=\skip71
+\c@algocfline=\count273
+\c@algocfproc=\count274
+\c@algocf=\count275
+\algocf@algoframe=\box59
+\algocf@algobox=\box60
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count276
+\lst@gtempboxa=\box61
+\lst@token=\toks26
+\lst@length=\count277
+\lst@currlwidth=\dimen179
+\lst@column=\count278
+\lst@pos=\count279
+\lst@lostspace=\dimen180
+\lst@width=\dimen181
+\lst@newlines=\count280
+\lst@lineno=\count281
+\lst@maxwidth=\dimen182
+
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count282
+\lst@skipnumbers=\count283
+\lst@framebox=\box62
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen183
+\captionmargin@=\dimen184
+\captionwidth=\dimen185
+\caption@tempdima=\dimen186
+\caption@indent=\dimen187
+\caption@parindent=\dimen188
+\caption@hangindent=\dimen189
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEta
+blestring \footnotesize \bgroup \par \centering \@IEEEtabletopskipstrut {\norma
+lfont \footnotesize #1}\\{\normalfont \footnotesize \scshape #2}\par \addvspace
+ {0.5\baselineskip }\egroup \@IEEEtablecaptionsepspace \else \@IEEEfigurecaptio
+nsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspac
+e \nobreakspace #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\nor
+malfont \footnotesize {#1.}\nobreakspace \nobreakspace }\parbox [t]{\hsize }{\n
+ormalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLASSOPTIONcon
+ference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }
+\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi \fi 
+\fi  on input line 1139.
+)
+
+Package caption Warning: Unknown document class (or package),
+(caption)                standard defaults will be used.
+See the caption package documentation for explanation.
+
+\c@caption@flags=\count284
+\c@continuedfloat=\count285
+Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
+) (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+)
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
-\l__kernel_color_stack_int=\count271
-\l__pdf_internal_box=\box53
+\l__kernel_color_stack_int=\count286
+\l__pdf_internal_box=\box63
 )
 (./articulo.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 
 -- Lines per column: 58 (exact).
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count272
-\scratchdimen=\dimen173
-\scratchbox=\box54
-\nofMPsegments=\count273
-\nofMParguments=\count274
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count275
-\MPscratchDim=\dimen174
-\MPnumerator=\count276
-\makeMPintoPDFobject=\count277
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count287
+\scratchdimen=\dimen190
+\scratchbox=\box64
+\nofMPsegments=\count288
+\nofMParguments=\count289
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count290
+\MPscratchDim=\dimen191
+\MPnumerator=\count291
+\makeMPintoPDFobject=\count292
+\everyMPtoPDFconversion=\toks28
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-(/usr/share/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-
-(/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-))
-(/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
-
-(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-)
-(/usr/share/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-))
-(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2020/03/06 v1.0d TeX engine tests
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+\c@lstlisting=\count293
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 5
+7.
 
-LaTeX Warning: Command \texttimes invalid in math mode on input line 39.
-
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-9.
 (/usr/share/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
+<reglaSarrus.png, id=1, 347.2975pt x 481.8pt>
+File: reglaSarrus.png Graphic file (type png)
+<use reglaSarrus.png>
+Package pdftex.def Info: reglaSarrus.png  used on input line 86.
+(pdftex.def)             Requested size: 104.18475pt x 144.54pt.
+LaTeX Font Info:    Trying to load font information for OML+ptm on input line 1
+28.
 
-LaTeX Warning: Command \texttimes invalid in math mode on input line 39.
+(/usr/share/texmf-dist/tex/latex/psnfss/omlptm.fd
+File: omlptm.fd 
+)
+LaTeX Font Info:    Font shape `OML/ptm/m/it' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 128.
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
-Missing character: There is no Ö in font cmr10!
-LaTeX Info: Symbol \textasciiacute not provided by
-            font family ptm in TS1 encoding.
-            Default family used instead on input line 63.
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
+ <./reglaSarrus.png>]
+Underfull \hbox (badness 1424) in paragraph at lines 173--174
+[]\OT1/ptm/m/n/10 Para este prob-lema de-sar-rol-lamos un pro-grama en el
+ []
+
+<lineal.png, id=18, 940.51375pt x 169.63374pt>
+File: lineal.png Graphic file (type png)
+<use lineal.png>
+Package pdftex.def Info: lineal.png  used on input line 177.
+(pdftex.def)             Requested size: 201.60077pt x 36.35924pt.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
+88.
+(/usr/share/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [2 <./lineal.png>] [3]
+<20x20np1.png, id=27, 711.65875pt x 872.25874pt>
+File: 20x20np1.png Graphic file (type png)
+<use 20x20np1.png>
+Package pdftex.def Info: 20x20np1.png  used on input line 295.
+(pdftex.def)             Requested size: 201.60077pt x 247.09233pt.
+<20x20np4.png, id=28, 714.67pt x 1025.8325pt>
+File: 20x20np4.png Graphic file (type png)
+<use 20x20np4.png>
+Package pdftex.def Info: 20x20np4.png  used on input line 302.
+(pdftex.def)             Requested size: 201.60077pt x 289.3756pt.
+<tiempoProcesos.png, id=29, 481.8pt x 361.35pt>
+File: tiempoProcesos.png Graphic file (type png)
+<use tiempoProcesos.png>
+Package pdftex.def Info: tiempoProcesos.png  used on input line 332.
+(pdftex.def)             Requested size: 201.60077pt x 151.19804pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4 <./20x20np1.png> <./20x20np4.png>]
+<tiempoOrdenes.png, id=33, 1443.89438pt x 765.6103pt>
+File: tiempoOrdenes.png Graphic file (type png)
+<use tiempoOrdenes.png>
+Package pdftex.def Info: tiempoOrdenes.png  used on input line 349.
+(pdftex.def)             Requested size: 201.60077pt x 106.89265pt.
+<tiempoOrdenesnp1.png, id=34, 1443.89438pt x 765.6103pt>
+File: tiempoOrdenesnp1.png Graphic file (type png)
+<use tiempoOrdenesnp1.png>
+Package pdftex.def Info: tiempoOrdenesnp1.png  used on input line 356.
+(pdftex.def)             Requested size: 201.60077pt x 106.89265pt.
+ [5 <./tiempoOrdenes.png (PNG copy)> <./tiempoProcesos.png (PNG copy)> <./tiemp
+oOrdenesnp1.png (PNG copy)>]
+LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <9> not available
+(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 397.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6
+
+]
+[7
 
 ] (./articulo.aux) ) 
 Here is how much of TeX's memory you used:
- 3235 strings out of 479383
- 51321 string characters out of 5875831
- 341181 words of memory out of 5000000
- 20314 multiletter control sequences out of 15000+600000
- 437253 words of font info for 88 fonts, out of 8000000 for 9000
+ 6899 strings out of 479383
+ 108426 string characters out of 5875831
+ 773819 words of memory out of 5000000
+ 23948 multiletter control sequences out of 15000+600000
+ 439670 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,8n,76p,478b,182s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts
-1.enc}{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-su
-per/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/
-share/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texmf-dist/fonts
-/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8
-a.pfb>
-Output written on articulo.pdf (1 page, 108498 bytes).
+ 66i,16n,72p,961b,1726s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></u
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/typ
+e1/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a
+.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw
+/times/utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></us
+r/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on articulo.pdf (7 pages, 624420 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
